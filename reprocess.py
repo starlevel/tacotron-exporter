@@ -483,7 +483,7 @@ def with_duration(fn, message_prefix: str):
     before = time.monotonic()
     result = fn()
     after = time.monotonic()
-    print(message_prefix + f" ({before - after:.3f}).")
+    print(message_prefix + f" ({after - before:.3f}).")
     return result
 
 
@@ -560,7 +560,8 @@ def main():
             se_location = find_skyrimse_path()
             if se_location is None:
                 parser.error(
-                    "Failed to locate dialogueExport.txt automatically. Specify its full path manually."
+                    "Failed to locate dialogueExport.txt automatically. "
+                    "Specify its full path manually."
                 )
             input_file = se_location / "dialogueExport.txt"
         else:
