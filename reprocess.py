@@ -517,8 +517,7 @@ def main():
         help="Reprocesses the dialogueExport.txt file for later usage",
     )
     reprocess_export.add_argument(
-        "input", help="The dialogueExport.txt generated from the CK",
-        nargs="?"
+        "input", help="The dialogueExport.txt generated from the CK", nargs="?"
     )
 
     # == Listing == #
@@ -561,7 +560,8 @@ def main():
             se_location = find_skyrimse_path()
             if se_location is None:
                 parser.error(
-                    "Failed to locate dialogueExport.txt automatically. Specify its full path manually.")
+                    "Failed to locate dialogueExport.txt automatically. Specify its full path manually."
+                )
             input_file = se_location / "dialogueExport.txt"
         else:
             input_file = Path(args.input)
@@ -619,9 +619,12 @@ def main():
         fn = functools.partial(extract_all_fuz, cleaned_output, work_dir)
         return with_duration(fn, "Extracted all FUZ files")
     elif args.subcommand == "generate-training-data":
-        fn = functools.partial(generate_training_directory, cleaned_output, work_dir,
-                               args.voice_type)
-        return with_duration(fn, "Reprocessed all voice files and generated training lists")
+        fn = functools.partial(
+            generate_training_directory, cleaned_output, work_dir, args.voice_type
+        )
+        return with_duration(
+            fn, "Reprocessed all voice files and generated training lists"
+        )
 
 
 if __name__ == "__main__":
