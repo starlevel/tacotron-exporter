@@ -420,12 +420,16 @@ def generate_training_directory(cleaned_output: Path, work_dir: Path, voice_type
             if line["voice_type"] != voice_type:
                 continue
 
-            lines.append(line)
-
             infile = xwm_dir / line["original_path"].lower()
             infile = infile.with_suffix(".xwm")
             outfile = wav_output_dir / infile.name
             outfile = outfile.with_suffix(".wav")
+
+            if not infile.exists():
+                print(f"Missing XWM file {infile}, skipping")
+                continue
+
+            lines.append(line)
 
             # this will save a godly amount of time on subsequent runs
             if not outfile.exists():
